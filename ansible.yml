@@ -1,5 +1,5 @@
 - name: Collect log files
-  hosts: control_nodes
+  hosts: servers
   tasks:
     - name: Gather log files
       fetch:
