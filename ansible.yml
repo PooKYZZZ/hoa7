@@ -1,0 +1,8 @@
+- name: Collect log files
+  hosts: control_nodes
+  tasks:
+    - name: Gather log files
+      fetch:
+        src: /var/log/*.log
+        dest: /home/user/logs/
+        flat: yes
