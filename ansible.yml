@@ -1,8 +1,17 @@
-- name: Collect log files
-  hosts: servers
+---
+- name: Collect log files from Control Node to Manage Node
+  hosts: mn1
   tasks:
-    - name: Gather log files
-      fetch:
-        src: /var/log/*.log
-        dest: /home/user/logs/
+    - name: Copy log file to Manage Node
+      ansible.builtin.fetch:
+        src: /var/log/syslog
+        dest: /tmp/logs/
         flat: yes
+
+- name: Ensure log file is on Manage Node
+  hosts: workstation
+  tasks:
+    - name: Ensure destination directory exists
+      ansible.builtin.file:
+        path: /tmp/logs
+        state: directory
